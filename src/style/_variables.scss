@@ -1,0 +1,46 @@
+// colors
+$color-white: #fff;
+$color-lighter-grey: #ebeff3;
+$color-lightest-grey: #fafbfc;
+$color-light-grey: #c9d3df;
+$color-grey: #adb9c9;
+$color-dark-grey: #8393a7;
+$color-darker-grey: #53657d;
+$color-almost-black: #26353f;
+$color-black: #1c1c1c;
+
+$color-blue: #0053b3;
+$color-light-blue: #006be6;
+$color-lighter-blue: #b4e1fa;
+$color-dark-blue: #003b80;
+$color-grey-blue: #adb9c9;
+
+$color-dark-green: #006731;
+$color-red: #d63626;
+
+// font-size
+$fs-small: .875rem;
+$fs-normal: 1rem;
+$fs-medium: 1.125rem;
+$fs-large: 1.25rem;
+
+// font-weight
+$fw-regular:  400;
+$fw-bold:     700;
+
+// media queries
+$desktop: 1000px;
+$tablet: 600px;
+$mobile: 480px;
+
+// links
+$link-color: $color-blue;
+
+// borders
+$border-color: $color-light-grey;
+$border-radius: 3px;
+
+// navigation
+$nav-height: 50px;
+$footer-height: 200px;
+$height-empty: 30em;
