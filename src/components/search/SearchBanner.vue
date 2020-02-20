@@ -15,9 +15,6 @@
         </div>
       </transition>
       <search-bar/>
-      <a class="back-to-results">
-        ← Revenir aux résultats
-      </a>
     </div>
   </div>
 </template>
