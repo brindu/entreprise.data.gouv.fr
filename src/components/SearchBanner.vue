@@ -14,6 +14,7 @@
           </p>
         </div>
       </transition>
+      <search-bar/>
       <a class="back-to-results">
         ← Revenir aux résultats
       </a>
@@ -22,8 +23,14 @@
 </template>
 
 <script>
+import SearchBar from "@/components/SearchBar";
+
 export default {
-  name: 'SearchBanner'
+  name: 'SearchBanner',
+
+  components: {
+    "search-bar": SearchBar
+  }
 }
 </script>
 
