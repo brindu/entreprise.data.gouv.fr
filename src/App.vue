@@ -6,6 +6,7 @@
       consulter librement.
     </div>
     <search-banner/>
+    <router-view></router-view>
     <app-footer/>
   </div>
 </template>
