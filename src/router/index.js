@@ -27,7 +27,8 @@ const router = new VueRouter({
     {
       path: "/search",
       name: "search-results",
-      component: SearchResults
+      component: SearchResults,
+      props: (route) => ({ fullText: route.query.fullText })
     }
   ]
 });
