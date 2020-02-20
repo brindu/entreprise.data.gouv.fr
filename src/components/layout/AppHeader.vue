@@ -4,7 +4,7 @@
       <a class="navbar__home" @click="goToHomepage">
         <img
           class="navbar__logo"
-          src="../assets/img/entreprise.svg"
+          src="@/assets/img/entreprise.svg"
           alt="entreprise.data.gouv.fr"
         />
       </a>

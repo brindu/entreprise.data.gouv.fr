@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer__logo">
         <a href="https://www.etalab.gouv.fr" target="_blank"
-          ><img src="../assets/img/etalab.svg"
+          ><img src="@/assets/img/etalab.svg"
         /></a>
         <ul class="footer__social">
           <li>

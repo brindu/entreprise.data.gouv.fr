@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SearchBarButton from "@/components/SearchBarButton";
+import SearchBarButton from "@/components/search/SearchBarButton";
 
 export default {
   name: 'SearchBar',

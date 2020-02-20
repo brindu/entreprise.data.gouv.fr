@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import AppHeader from "@/components/AppHeader";
-import SearchBanner from "@/components/SearchBanner";
-import AppFooter from "@/components/AppFooter";
+import AppHeader from "@/components/layout/AppHeader";
+import SearchBanner from "@/components/search/SearchBanner";
+import AppFooter from "@/components/layout/AppFooter";
 
 export default {
   name: 'App',
