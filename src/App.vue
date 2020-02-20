@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <app-header/>
-    <search-bar/>
+    <div class="notification full-width">
+      Ce site est un travail en cours, actuellement en beta. Vous pouvez le
+      consulter librement.
+    </div>
+    <search-banner/>
     <app-footer/>
   </div>
 </template>
 
 <script>
 import AppHeader from "@/components/AppHeader";
-import SearchBar from "@/components/SearchBar";
+import SearchBanner from "@/components/SearchBanner";
 import AppFooter from "@/components/AppFooter";
 
 export default {
@@ -16,7 +20,7 @@ export default {
 
   components: {
     'app-header': AppHeader,
-    'search-bar': SearchBar,
+    'search-banner': SearchBanner,
     'app-footer': AppFooter
   }
 }
