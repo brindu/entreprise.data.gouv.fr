@@ -23,7 +23,20 @@
 
 <script>
 export default {
-  name: 'SearchBar'
+  name: 'SearchBar',
+
+  data () {
+    return {
+      searchInput: ""
+    }
+  },
+
+  methods: {
+    submit () {
+      this.$store.dispatch("search/fulltextSearch", this.searchInput);
+      this.$router.push({ name: "search-results"});
+    }
+  }
 }
 </script>
 
