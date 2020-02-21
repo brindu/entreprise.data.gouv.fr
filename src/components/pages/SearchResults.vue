@@ -2,30 +2,16 @@
   <section class="section">
     <div class="container">
       <h4 v-if="results.length == 0">Aucun résultat trouvé.</h4>
-
       <ul v-else>
-        <li v-for="(etablissement, index) in results" :key="index">
-          <router-link
-            class="panel"
-            :to="{ name: 'Etablissement', params: { searchId: etablissement.siret } }"
-          >
-            <h4 class="title">
-              {{ etablissement.nom_raison_sociale | capitalize | removeExtraChars }}
-            </h4>
-            <p>{{ etablissement.libelle_activite_principale_entreprise }}</p>
-            <p>
-              {{ etablissement.code_postal }}
-              {{ etablissement.libelle_commune | capitalize }}
-            </p>
-          </router-link>
-        </li>
+        <sirene-result v-for="(result, index) in results" :etablissement="result" :key="index" />
       </ul>
     </div>
   </section>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+import SireneResult from "@/components/pages/search_results/SireneResult";
 
 export default {
   name: 'SearchResults',
@@ -51,6 +37,10 @@ export default {
     searchForResults: function() {
       this.$store.dispatch("search/fulltextSearch", this.fullText);
     }
+  },
+
+  components: {
+    "sirene-result": SireneResult
   }
 }
 </script>
@@ -60,36 +50,9 @@ export default {
   min-height: 70vh;
 }
 
-.title {
-  display: inline;
-  margin: 0.15em;
-}
-
-.panel {
-  display: block;
-  text-decoration: none;
-  color: $color-black;
-
-  &:hover {
-    border: 1px solid $color-light-blue;
-  }
-}
-
-p {
-  margin: 0.15em;
-}
-
 ul {
   list-style: none;
   padding: 0;
   margin: 2em 0;
-
-  li:hover {
-    background-color: $color-lightest-grey;
-  }
-}
-
-li + li {
-  margin-top: 2em;
 }
 </style>
