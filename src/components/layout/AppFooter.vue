@@ -46,7 +46,7 @@
           >
         </li>
         <li>
-          <router-link :to="{ name: 'LegalNotes' }"
+          <router-link :to="{ name: 'legal-notes' }"
             >Mentions légales</router-link
           >
         </li>
