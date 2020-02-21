@@ -15,27 +15,43 @@ const state = {
 const getters = {
   getResults(state) {
     return state.results.etablissements;
+  },
+
+  getResultsNumber(state) {
+    return parseInt(state.results.metadata.total_results);
+  },
+
+  getPagesNumber(state) {
+    return parseInt(state.results.metadata.total_pages);
   }
 };
 
 const mutations = {
   fillEtablissements(state, etablissements) {
     state.results.etablissements = etablissements;
+  },
+
+  fillResultsMetadata(state, metadata) {
+    state.results.metadata = metadata;
   }
 };
 
 const actions = {
-  //index({ commit, dispatch }) {
-  //  dispatch("api/admin/get", { url: "/roles" }, { root: true }).then(data =>
-  //    commit("fill", { roles: data })
-  //  );
-  //}
-  fulltextSearch({ commit }, searchInput) {
-    const url = "full_text/" + searchInput;
+  fulltextSearch({ dispatch }, { searchInput, pageNumber }) {
+    const url = `full_text/${searchInput}?per_page=5&page=${pageNumber}`;
     http.get(url)
-      // TODO fill metadata
-      .then(response => commit("fillEtablissements", response.data.etablissement))
+      .then(response => dispatch("fillSireneResults", response.data))
       .catch(error => console.error(error));
+  },
+
+  fillSireneResults({ commit }, response) {
+    commit("fillEtablissements", response.etablissement);
+    commit("fillResultsMetadata", {
+      total_results: response.total_results,
+      total_pages: response.total_pages,
+      per_page: response.per_page,
+      page: response.page
+    });
   }
 };
 

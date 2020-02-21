@@ -9,16 +9,6 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: "history",
   routes: [
-    //{
-    //  path: "/account/confirm",
-    //  name: "account-confirmation",
-    //  component: AccountConfirmation
-    //},
-    //{
-    //  path: "/account/password_reset_request",
-    //  name: "account-password-reset-request",
-    //  component: PasswordResetRequest
-    //}
     {
       path: "/",
       name: "home",
@@ -28,7 +18,7 @@ const router = new VueRouter({
       path: "/search",
       name: "search-results",
       component: SearchResultsList,
-      props: (route) => ({ fullText: route.query.fullText })
+      props: (route) => ({ fullText: route.query.fullText, page: route.query.page })
     }
   ]
 });

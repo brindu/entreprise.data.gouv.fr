@@ -25,7 +25,7 @@ export default {
 
   methods: {
     submit () {
-      this.$router.push({ name: "search-results", query: { fullText: this.searchInput } });
+      this.$router.push({ name: "search-results", query: { fullText: this.searchInput, page: 1 } });
     }
   },
 

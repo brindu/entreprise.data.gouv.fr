@@ -2,55 +2,64 @@
   <section class="section">
     <div class="container">
       <h4 v-if="results.length == 0">Aucun résultat trouvé.</h4>
-
       <ul v-else>
-        <li v-for="(etablissement, index) in results" :key="index">
-          <router-link
-            class="panel"
-            :to="{ name: 'Etablissement', params: { searchId: etablissement.siret } }"
-          >
-            <h4 class="title">
-              {{ etablissement.nom_raison_sociale | capitalize | removeExtraChars }}
-            </h4>
-            <p>{{ etablissement.libelle_activite_principale_entreprise }}</p>
-            <p>
-              {{ etablissement.code_postal }}
-              {{ etablissement.libelle_commune | capitalize }}
-            </p>
-          </router-link>
-        </li>
+        <h3>{{ resultsNumber }} résultats pour "{{ fullText }}" dans la base SIRENE des entreprises</h3>
+        <sirene-result v-for="(result, index) in results" :etablissement="result" :key="index" />
       </ul>
+      <pagination v-on:goToPage="routeToPage" :currentPage="page" :pagesNumber="pagesNumber" />
     </div>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import SireneResult from "@/components/pages/search_results/SireneResult";
+import Pagination from "@/components/pages/search_results/Pagination";
 
 export default {
-  name: 'SearchResults',
+  name: 'SearchResultsList',
 
   props: {
     fullText: {
       type: String,
       default: ""
+    },
+
+    page: {
+      type: Number,
+      default: 1
     }
   },
 
   computed: {
-    ...mapGetters({ results: "search/getResults" })
+    ...mapGetters({
+      results: "search/getResults",
+      resultsNumber: "search/getResultsNumber",
+      pagesNumber: "search/getPagesNumber"
+    })
   },
 
   created: function() { this.searchForResults(); },
 
   watch: {
-    fullText: function() { this.searchForResults(); }
+    fullText: function() { this.searchForResults(); },
+    page: function() { this.searchForResults(); }
   },
 
   methods: {
     searchForResults: function() {
-      this.$store.dispatch("search/fulltextSearch", this.fullText);
+      const args = { searchInput: this.fullText, pageNumber: this.page };
+      this.$store.dispatch("search/fulltextSearch", args);
+    },
+
+    routeToPage: function(pageNumber) {
+      this.$router.push({ name: "search-results", query: { fullText: this.fullText, page: pageNumber } });
     }
+  },
+
+  components: {
+    "sirene-result": SireneResult,
+    "pagination": Pagination
   }
 }
 </script>
@@ -60,36 +69,9 @@ export default {
   min-height: 70vh;
 }
 
-.title {
-  display: inline;
-  margin: 0.15em;
-}
-
-.panel {
-  display: block;
-  text-decoration: none;
-  color: $color-black;
-
-  &:hover {
-    border: 1px solid $color-light-blue;
-  }
-}
-
-p {
-  margin: 0.15em;
-}
-
 ul {
   list-style: none;
   padding: 0;
   margin: 2em 0;
-
-  li:hover {
-    background-color: $color-lightest-grey;
-  }
-}
-
-li + li {
-  margin-top: 2em;
 }
 </style>
