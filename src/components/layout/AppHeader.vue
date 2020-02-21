@@ -18,7 +18,7 @@ export default {
 
   methods: {
     goToHomepage() {
-      //TODO Go to homepage
+      this.$router.push({ name: "home" })
     }
   }
 }

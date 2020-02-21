@@ -7,7 +7,7 @@
             <p>
               Vous pouvez, si vous le souhaitez, interroger directement les APIs
             </p>
-            <router-link class="button" :to="{ name: 'ApiDoc' }"
+            <router-link class="button" :to="{ name: 'api-doc' }"
               >Documentation des APIs</router-link
             >
           </div>
