@@ -44,7 +44,7 @@
             SIRET. Les données de l’API Sirene sont délivrées par l’INSEE.
           </p>
           <div class="cta">
-            <router-link class="button" :to="{ name: 'ApiDocSirene' }"
+            <router-link class="button" :to="{ name: 'api-doc-sirene' }"
               >Documentation API Sirene</router-link
             >
           </div>
@@ -61,7 +61,7 @@
             proviennent du Ministère de l’Intérieur.
           </p>
           <div class="cta">
-            <router-link class="button" :to="{ name: 'ApiDocRNA' }"
+            <router-link class="button" :to="{ name: 'api-doc-rna' }"
               >Documentation API RNA</router-link
             >
           </div>
@@ -97,7 +97,7 @@
             l’INPI.
           </p>
           <div class="cta">
-            <router-link class="button" :to="{ name: 'ApiDocRNCS' }"
+            <router-link class="button" :to="{ name: 'api-doc-rncs' }"
               >Documentation API RNCS</router-link
             >
           </div>
