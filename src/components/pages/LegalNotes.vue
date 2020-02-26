@@ -36,7 +36,7 @@ export default {
   name: "LegalNotes",
 
   metaInfo: {
-    title:; "Mentions Légales"
+    title: "Mentions Légales"
   }
 };
 </script>
