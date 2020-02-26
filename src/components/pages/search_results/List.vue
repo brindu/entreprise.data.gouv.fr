@@ -12,8 +12,8 @@
         <ul>
           <rna-result v-for="(result, index) in resultsRna" :association="result" :key="'rna-' + index" />
         </ul>
+        <pagination v-on:goToPage="routeToPage" :currentPage="page" :pagesNumber="pagesNumberSirene" />
       </div>
-      <pagination v-on:goToPage="routeToPage" :currentPage="page" :pagesNumber="pagesNumberSirene" />
     </div>
   </section>
 </template>
