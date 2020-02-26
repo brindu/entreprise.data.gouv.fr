@@ -3,6 +3,7 @@ import Vue from 'vue'
 
 import Homepage from "@/components/pages/Home";
 import LegalNotes from "@/components/pages/LegalNotes";
+import CodesNaf from "@/components/doc/sirene/CodesNaf";
 import DocumentationHome from "@/components/doc/Home";
 import DocumentationSirene from "@/components/doc/Sirene";
 import DocumentationRna from "@/components/doc/Rna";
@@ -44,6 +45,11 @@ const router = new VueRouter({
       path: "/api_doc/rncs",
       name: "api-doc-rncs",
       component: DocumentationRncs
+    },
+    {
+      path: "/api-doc/codes_naf",
+      name: "codes-naf",
+      component: CodesNaf
     },
     {
       path: "/mentions_legales",

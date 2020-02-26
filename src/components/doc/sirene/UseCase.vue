@@ -34,7 +34,7 @@
                 Je renseigne le code activité (code NAF) pour les
                 boulangeries.<br />
                 Je peux trouver cette information
-                <router-link :to="{ name: 'CodesNAF' }"
+                <router-link :to="{ name: 'codes-naf' }"
                   >sur cette page</router-link
                 >.<br />
                 L’INSEE propose également un
