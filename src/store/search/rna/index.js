@@ -18,11 +18,11 @@ const getters = {
   },
 
   getResultsNumber(state) {
-    return parseInt(state.results.metadata.total_results);
+    return (parseInt(state.results.metadata.total_results) || 0);
   },
 
   getPagesNumber(state) {
-    return parseInt(state.results.metadata.total_pages);
+    return (parseInt(state.results.metadata.total_pages) || 0);
   }
 };
 
@@ -33,15 +33,23 @@ const mutations = {
 
   fillResultsMetadata(state, metadata) {
     state.results.metadata = metadata;
+  },
+
+  fillNoResults(state) {
+    state.results.metadata = {};
+    state.results.associations = [];
   }
 };
 
 const actions = {
-  fulltextSearch({ dispatch }, { searchInput, pageNumber }) {
+  fulltextSearch({ dispatch, commit }, { searchInput, pageNumber }) {
     const url = `${searchInput}?per_page=5&page=${pageNumber}`;
     http.get(url)
       .then(response => dispatch("fillResults", response.data))
-      .catch(error => console.error(error));
+      .catch(function(error) {
+        if (error.response.status === 404) commit("fillNoResults");
+        else console.error(error);
+      });
   },
 
   fillResults({ commit }, response) {
