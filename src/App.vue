@@ -19,6 +19,11 @@ import AppFooter from "@/components/layout/AppFooter";
 export default {
   name: 'App',
 
+  metaInfo: {
+    title: null,
+    titleTemplate: "%s | Entreprise.data.gouv.fr"
+  },
+
   components: {
     'app-header': AppHeader,
     'search-banner': SearchBanner,

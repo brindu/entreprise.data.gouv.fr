@@ -4,7 +4,11 @@
 
 <script>
 export default {
-  name: "DocumentationRncs"
+  name: "DocumentationRncs",
+
+  metaInfo: {
+    title: "Documentation API RNCS"
+  }
 };
 </script>
 

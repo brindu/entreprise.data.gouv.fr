@@ -20,6 +20,10 @@ import DocumentationSireneUseCase from "@/components/doc/sirene/UseCase.vue";
 export default {
   name: "DocumentationSirene",
 
+  metaInfo: {
+    title: "Documentation API Sirene"
+  },
+
   components : {
     "documentation-sirene-intro": DocumentationSireneIntro,
     "documentation-sirene-search": DocumentationSireneSearch,

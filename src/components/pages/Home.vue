@@ -62,7 +62,11 @@
 
 <script>
 export default {
-  name: 'Homepage'
+  name: 'Homepage',
+
+  metaInfo: {
+    title: "Accueil"
+  }
 }
 </script>
 

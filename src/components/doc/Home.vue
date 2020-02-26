@@ -192,7 +192,11 @@
 
 <script>
 export default {
-  name: "DocumentationHome"
+  name: "DocumentationHome",
+
+  metaInfo: {
+    title: "Documentation"
+  }
 };
 </script>
 

@@ -27,6 +27,12 @@ import Pagination from "@/components/pages/search_results/Pagination";
 export default {
   name: 'SearchResultsList',
 
+  metaInfo() {
+    return {
+      title: `Recherche : ${this.fullText} - Page : ${this.page}`
+    }
+  },
+
   props: {
     fullText: {
       type: String,

@@ -1283,7 +1283,11 @@
 
 <script>
 export default {
-  name: "CodesNAF"
+  name: "CodesNAF",
+
+  metaInfo: {
+    title: "Codes NAF"
+  }
 };
 </script>
 

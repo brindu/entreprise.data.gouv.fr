@@ -4,7 +4,11 @@
 
 <script>
 export default {
-  name: "DocumentationRna"
+  name: "DocumentationRna",
+
+  metaInfo: {
+    title: "Documentation API RNA"
+  }
 };
 </script>
 
