@@ -33,9 +33,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      results: "search/getResults",
-      resultsNumber: "search/getResultsNumber",
-      pagesNumber: "search/getPagesNumber"
+      results: "search/sirene/getResults",
+      resultsNumber: "search/sirene/getResultsNumber",
+      pagesNumber: "search/sirene/getPagesNumber"
     })
   },
 
@@ -49,7 +49,7 @@ export default {
   methods: {
     searchForResults: function() {
       const args = { searchInput: this.fullText, pageNumber: this.page };
-      this.$store.dispatch("search/fulltextSearch", args);
+      this.$store.dispatch("search/sirene/fulltextSearch", args);
     },
 
     routeToPage: function(pageNumber) {
