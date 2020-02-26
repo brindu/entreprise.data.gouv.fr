@@ -1,12 +1,19 @@
 <template>
   <section class="section">
     <div class="container">
-      <h4 v-if="results.length == 0">Aucun résultat trouvé.</h4>
-      <ul v-else>
-        <h3>{{ resultsNumber }} résultats pour "{{ fullText }}" dans la base SIRENE des entreprises</h3>
-        <sirene-result v-for="(result, index) in results" :etablissement="result" :key="index" />
-      </ul>
-      <pagination v-on:goToPage="routeToPage" :currentPage="page" :pagesNumber="pagesNumber" />
+      <h4 v-if="noResultFromBothSource">Aucun résultat trouvé.</h4>
+      <div v-else>
+        <h3>{{ resultsNumberSirene }} résultats pour "{{ fullText }}" dans la base SIRENE des entreprises.</h3>
+        <ul>
+          <sirene-result v-for="(result, index) in resultsSirene" :etablissement="result" :key="'sirene-' + index" />
+        </ul>
+
+        <h3>{{ resultsNumberRna }} résultats pour "{{ fullText }}" dans le Répertoire National des Associations.</h3>
+        <ul>
+          <rna-result v-for="(result, index) in resultsRna" :association="result" :key="'rna-' + index" />
+        </ul>
+      </div>
+      <pagination v-on:goToPage="routeToPage" :currentPage="page" :pagesNumber="pagesNumberSirene" />
     </div>
   </section>
 </template>
@@ -14,6 +21,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SireneResult from "@/components/pages/search_results/SireneResult";
+import RnaResult from "@/components/pages/search_results/RnaResult";
 import Pagination from "@/components/pages/search_results/Pagination";
 
 export default {
@@ -33,10 +41,21 @@ export default {
 
   computed: {
     ...mapGetters({
-      results: "search/sirene/getResults",
-      resultsNumber: "search/sirene/getResultsNumber",
-      pagesNumber: "search/sirene/getPagesNumber"
-    })
+      resultsSirene: "search/sirene/getResults",
+      resultsNumberSirene: "search/sirene/getResultsNumber",
+      pagesNumberSirene: "search/sirene/getPagesNumber",
+      resultsRna: "search/rna/getResults",
+      resultsNumberRna: "search/rna/getResultsNumber",
+      pagesNumberRna: "search/rna/getPagesNumber"
+    }),
+
+    maxPagesFromSource: function() {
+      return Math.max(this.pagesNumberSirene, this.pagesNumberRna);
+    },
+
+    noResultFromBothSource: function() {
+      return (this.resultsSirene.length == 0 && this.resultsRna.length == 0);
+    }
   },
 
   created: function() { this.searchForResults(); },
@@ -50,6 +69,7 @@ export default {
     searchForResults: function() {
       const args = { searchInput: this.fullText, pageNumber: this.page };
       this.$store.dispatch("search/sirene/fulltextSearch", args);
+      this.$store.dispatch("search/rna/fulltextSearch", args);
     },
 
     routeToPage: function(pageNumber) {
@@ -59,6 +79,7 @@ export default {
 
   components: {
     "sirene-result": SireneResult,
+    "rna-result": RnaResult,
     "pagination": Pagination
   }
 }

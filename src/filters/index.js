@@ -13,3 +13,10 @@ Vue.filter("removeExtraChars", function(str) {
 });
 
 Vue.filter("capitalize", capitalize);
+
+Vue.filter("truncate", function(string) {
+  if (string && string.length > 80) {
+    return `${string.substring(0, 75)}...`;
+  }
+  return string;
+});
