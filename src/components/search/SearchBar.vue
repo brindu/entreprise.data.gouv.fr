@@ -7,7 +7,7 @@
       placeholder="Nom, SIREN, SIRET, adresse..."
       @keydown.enter="submit"
     />
-    <search-bar-button/>
+    <search-bar-button v-on:submitSearch="submit"/>
   </div>
 </template>
 

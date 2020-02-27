@@ -1,5 +1,5 @@
 <template>
-  <button class="overlay-button">
+  <button class="overlay-button" @click="$emit('submitSearch')">
     <svg
       class="icon icon-search"
       xmlns="http://www.w3.org/2000/svg"
