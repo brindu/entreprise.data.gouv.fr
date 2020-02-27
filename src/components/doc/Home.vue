@@ -179,7 +179,7 @@
           mission de service public.<br />
           Pour toutes questions :
           <a href="maito:tech@entreprise.api.gouv.fr"
-            >tech@entreprise.api.gouv.fr</a
+            >support@entreprise.api.gouv.fr</a
           >
         </p>
         <a class="button" href="https://entreprise.api.gouv.fr/"
