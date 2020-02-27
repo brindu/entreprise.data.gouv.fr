@@ -4,14 +4,32 @@
       v-model="searchInput"
       type="text"
       name="searchInput"
+      autocomplete="off"
       placeholder="Nom, SIREN, SIRET, adresse..."
+      @keydown.esc="emptySuggestions"
+      @blur="emptySuggestions"
+      @keydown.down="moveSelectionCursorDown"
+      @keydown.up="moveSelectionCursorUp"
       @keydown.enter="submit"
     />
     <search-bar-button v-on:submitSearch="submit"/>
+
+    <ul v-show="suggestions.length > 0" class="suggestions">
+      <li
+        v-for="(suggestion, index) in suggestions"
+        :key="index"
+        class="suggestion__box"
+        :class="{ active: isSelected(index) }"
+        @mousedown="selectAndSubmit(index)"
+      >
+        <span>{{ suggestion | capitalize | removeExtraChars }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SearchBarButton from "@/components/search/SearchBarButton";
 
 export default {
@@ -19,13 +37,50 @@ export default {
 
   data () {
     return {
-      searchInput: ""
+      searchInput: "",
+      selectionCursor: -1
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      suggestions: "search/suggestion/getSuggestions"
+    })
+  },
+
+  watch: {
+    searchInput: function(currentVal) {
+      this.$store.dispatch("search/suggestion/requestSuggestions", currentVal);
     }
   },
 
   methods: {
     submit () {
+      if (this.selectionCursor !== -1) this.searchInput = this.suggestions[this.selectionCursor];
+      this.emptySuggestions();
       this.$router.push({ name: "search-results", query: { fullText: this.searchInput, page: 1 } });
+    },
+
+    selectAndSubmit (suggestionIndex) {
+      this.selectionCursor = suggestionIndex;
+      this.submit();
+    },
+
+    emptySuggestions () {
+      this.selectionCursor = -1;
+      this.$store.commit("search/suggestion/emptySuggestions");
+    },
+
+    moveSelectionCursorDown () {
+      if (this.selectionCursor < this.suggestions.length - 1) this.selectionCursor += 1;
+    },
+
+    moveSelectionCursorUp () {
+      if (this.selectionCursor > -1) this.selectionCursor -= 1;
+    },
+
+    isSelected (pos) {
+      return pos === this.selectionCursor;
     }
   },
 
@@ -39,5 +94,39 @@ export default {
 .form__group {
   width: 35em;
   max-width: 100%;
+}
+
+.suggestions {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  color: $color-almost-black;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid $color-grey-blue;
+  background: $color-white;
+}
+
+.suggestion__box {
+  min-height: 2.7em;
+  outline: none;
+  padding: 8px 14px;
+  font: inherit;
+  line-height: 1.6;
+  vertical-align: middle;
+  position: relative;
+}
+
+.suggestion__box:hover {
+  cursor: pointer;
+  background: $color-lighter-blue;
+}
+
+.active {
+  background-color: $color-lighter-blue;
 }
 </style>
