@@ -31,6 +31,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SearchBarButton from "@/components/search/SearchBarButton";
+import _debounce from "lodash/debounce";
 
 export default {
   name: 'SearchBar',
@@ -42,6 +43,10 @@ export default {
     }
   },
 
+  created: function() {
+    this.debounceRequestSuggestion = _debounce(this.requestSuggestions, 200);
+  },
+
   computed: {
     ...mapGetters({
       suggestions: "search/suggestion/getSuggestions"
@@ -49,8 +54,8 @@ export default {
   },
 
   watch: {
-    searchInput: function(currentVal) {
-      this.$store.dispatch("search/suggestion/requestSuggestions", currentVal);
+    searchInput: function(val) {
+      if (val !== "") this.debounceRequestSuggestion(val);
     }
   },
 
@@ -64,6 +69,10 @@ export default {
     selectAndSubmit (suggestionIndex) {
       this.selectionCursor = suggestionIndex;
       this.submit();
+    },
+
+    requestSuggestions (val) {
+      this.$store.dispatch("search/suggestion/requestSuggestions", val);
     },
 
     emptySuggestions () {
