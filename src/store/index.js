@@ -4,12 +4,14 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import search from "./search";
+import sirene from "./sirene";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== "production",
   modules: {
-    search
+    search,
+    sirene
   }
 });

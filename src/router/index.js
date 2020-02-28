@@ -9,6 +9,7 @@ import DocumentationSirene from "@/components/doc/Sirene";
 import DocumentationRna from "@/components/doc/Rna";
 import DocumentationRncs from "@/components/doc/Rncs";
 import SearchResultsList from "@/components/pages/search_results/List";
+import SireneEtablissement from "@/components/pages/etablissement/Sirene";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,12 @@ const router = new VueRouter({
       name: "search-results",
       component: SearchResultsList,
       props: (route) => ({ fullText: route.query.fullText, page: parseInt(route.query.page) })
+    },
+    {
+      path: "/sirene/etablissements/:id",
+      name: "sirene-etablissement",
+      props: true,
+      component: SireneEtablissement
     },
     {
       path: "/api_doc",
