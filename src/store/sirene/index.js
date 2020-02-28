@@ -24,6 +24,10 @@ const state = {
 const getters = {
   getEtablissement(state) {
     return state.etablissement;
+  },
+
+  getUniteLegale(state) {
+    return state.uniteLegale;
   }
 };
 
