@@ -10,9 +10,15 @@ const httpUniteLegale = axios.create({
   timeout: 30000
 });
 
+const httpGeoJson = axios.create({
+  baseURL: `${process.env.VUE_APP_SIRENE_GEOJSON}`,
+  timeout: 30000
+});
+
 const state = {
   etablissement: {},
-  uniteLegale: {}
+  uniteLegale: {},
+  geoJson: {}
 };
 
 const getters = {
@@ -28,39 +34,38 @@ const mutations = {
 
   fillUniteLegale(state, uniteLegale) {
     state.uniteLegale = uniteLegale;
+  },
+
+  fillGeoJson(state, geoJson) {
+    state.geoJson = geoJson;
   }
 };
 
 const actions = {
-  fetchEtablissement({ commit }, siret) {
-    const url = `${siret}`;
-    console.log("start fetch etablissement");
-    return new Promise((resolve, reject) => {
-      httpEtablissement.get(url)
-        .then((response) => {
-          console.log("got data etablissement!");
-          commit("fillEtablissement", response.data.etablissement);
-          resolve(response.data.etablissement);
-        })
-        .catch(() => reject())
-    });
+  async fetchEtablissement({ commit }, siret) {
+    const response = await httpEtablissement.get(`${siret}`);
+    const etablissement = response.data.etablissement;
+    commit("fillEtablissement", etablissement);
   },
 
-  fetchUniteLegale({ dispatch, commit }, siret) {
-    return new Promise((resolve, reject) => {
-      dispatch("fetchEtablissement", siret)
-        .then(etablissement => {
-          console.log("start fetch unite legale");
-          const url = `${etablissement.siren}`;
-          httpUniteLegale.get(url)
-            .then((response) => {
-              console.log("got data unite legale!");
-              commit("fillUniteLegale", response.data.unite_legale);
-              resolve();
-            })
-            .catch(() => reject())
-          });
-    })
+  async fetchUniteLegale({ commit }, siren) {
+    const response = await httpUniteLegale.get(`${siren}`);
+    commit("fillUniteLegale", response.data.unite_legale);
+  },
+
+  async fetchGeoJson({ commit }, siren) {
+    const url = `${siren}/etablissements_geojson`;
+    const response = await httpGeoJson.get(url);
+    commit("fillGeoJson", response.data);
+  },
+
+  async fetchAllData({ dispatch, state }, siret) {
+    await dispatch("fetchEtablissement", siret);
+    const siren = state.etablissement.siren;
+    await Promise.all([
+      dispatch("fetchUniteLegale", siren),
+      dispatch("fetchGeoJson", siren)
+    ]);
   }
 };
 

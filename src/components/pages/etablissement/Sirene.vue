@@ -23,8 +23,7 @@ export default {
   },
 
   created() {
-    console.log("start both data fetching");
-    this.$store.dispatch("sirene/fetchUniteLegale", this.id)
+    this.$store.dispatch("sirene/fetchAllData", this.id)
       .then(() => console.log("got both data"))
   }
 }
