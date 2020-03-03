@@ -9,6 +9,11 @@ function concatNames(firstName, lastName) {
   else return last;
 }
 
+function placeHolderIfEmpty(str) {
+  return (str && str !== "null") ? str : "Non renseigné";
+}
+
 export {
-  concatNames
+  concatNames,
+  placeHolderIfEmpty
 };

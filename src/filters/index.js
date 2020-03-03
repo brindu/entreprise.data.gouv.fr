@@ -1,4 +1,5 @@
 import capitalize from "lodash/capitalize";
+import { placeHolderIfEmpty } from "@/helpers";
 
 import Vue from "vue";
 
@@ -13,6 +14,7 @@ Vue.filter("removeExtraChars", function(str) {
 });
 
 Vue.filter("capitalize", capitalize);
+Vue.filter("placeHolderIfEmpty", placeHolderIfEmpty);
 
 Vue.filter("truncate", function(string) {
   if (string && string.length > 80) {
@@ -39,11 +41,6 @@ Vue.filter("prettySiretHtml", function(str) {
   return str.replace(/(\d{3})(\d{3})(\d{3})(\d{5})/g, "$1&#8239;$2&#8239;$3&#8239;$4");
 });
 
-Vue.filter("placeHolderIfEmpty", function(str) {
-  return (str && str !== "null") ? str : "Non renseigné";
-});
-
 // convert a date into the DD/MM/YYYY format
-Vue.filter("frenchDateFormat", function(date) {
-  return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
+Vue.filter("frenchDateFormat", function(date) { return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
 });

@@ -17,6 +17,8 @@
 <script>
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
+import { mapGetters } from 'vuex';
+import { placeHolderIfEmpty } from "@/helpers";
 
 const colors = {
   white: "#FFFFFF",
@@ -29,47 +31,44 @@ const colors = {
 
 export default {
   name: "Map",
-  props: {
-    etablissement: {
-      type: Object,
-      default() {
-        return {};
-      }
-    },
-    positionEtablissement: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
+
   data() {
     return {
-      baseAdressSirenV2: "https://entreprise.data.gouv.fr/api/sirene/v2/siren/",
-      mapboxglSupported: mapboxgl.supported(),
-      mapTilesEtalab:
-        "https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json",
-      mapOptions(json) {
-        return {
-          container: "map",
-          style: json,
-          center: this.positionEtablissement,
-          zoom: 13
-        };
-      },
+      mapTilesEtalab: "https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json",
       etablissementPopup: new mapboxgl.Popup({
         closeButton: true
-      })
+      }),
+      mapboxglSupported: mapboxgl.supported()
     };
   },
+
   computed: {
+    ...mapGetters({
+      etablissement: "sirene/getEtablissement",
+      etablissementsNearby: "sirene/getEtablissementsNearby"
+    }),
+
     haveNoMapInfo() {
       return (this.etablissement && this.etablissement.geo_score == "0");
+    },
+
+    coordinates() {
+      if (
+        this.etablissement &&
+        this.etablissement.longitude &&
+        this.etablissement.latitude
+      ) {
+        return [this.etablissement.longitude, this.etablissement.latitude];
+      }
+      else { return null; }
     }
   },
+
   mounted() {
-    axios.get(this.mapTilesEtalab).then(response => { this.initMap(response.data); });
+    axios.get(this.mapTilesEtalab)
+      .then(response => { this.initMap(response.data); });
   },
+
   methods: {
     initMap: function(json) {
       if (this.haveNoMapInfo) return;
@@ -85,24 +84,31 @@ export default {
         this.etablissement
       );
     },
+
+    mapOptions: function(json) {
+      return {
+        container: "map",
+        style: json,
+        center: this.coordinates,
+        zoom: 13
+      };
+    },
+
     addEtablissementMarker(map) {
       new mapboxgl.Marker({ color: colors.red })
-        .setLngLat(this.positionEtablissement)
+        .setLngLat(this.coordinates)
         .setPopup(this.etablissementPopup)
         .addTo(map);
     },
-    addOtherMarkers: async function(map, siren) {
-      const response = await this.getMarkersData(siren);
+
+    addOtherMarkers: function(map) {
       map.on("load", () => {
-        this.addSourceEtablissements(map, response.data);
+        this.addSourceEtablissements(map, this.etablissementsNearby);
         this.addLayerEtablissements(map);
         this.addPopupsEtablissements(map);
       });
     },
-    getMarkersData: async function(siren) {
-      const query = this.nearEtablissementQuery(siren);
-      return await axios.get(query);
-    },
+
     addSourceEtablissements: function(map, data) {
       map.addSource("etablissements", {
         type: "geojson",
@@ -112,11 +118,13 @@ export default {
         clusterRadius: 50
       });
     },
+
     addLayerEtablissements: function(map) {
       this.addLayerClusters(map);
       this.addLayerClustersText(map);
       this.addLayerPoints(map);
     },
+
     addLayerClusters(map) {
       map.addLayer({
         id: "clusters",
@@ -137,6 +145,7 @@ export default {
         }
       });
     },
+
     addLayerClustersText(map) {
       map.addLayer({
         id: "cluster-count",
@@ -153,6 +162,7 @@ export default {
         }
       });
     },
+
     addLayerPoints(map) {
       map.addLayer({
         id: "unclustered-point",
@@ -167,6 +177,7 @@ export default {
         }
       });
     },
+
     addPopupsEtablissements(map) {
       const vm = this;
       map.on("click", function(click) {
@@ -183,19 +194,17 @@ export default {
         vm.addPopupContent(etablissementPopup, etablissementsPoints.properties);
       });
     },
-    nearEtablissementQuery(siren) {
-      return this.baseAdressSirenV2 + siren + "/etablissements_geojson";
-    },
+
     addPopupContent(popup, etablissement) {
       popup.setHTML(
         "<p><strong>Enseigne</strong> :  " +
-          (etablissement.enseigne || "Non renseigné") +
+          placeHolderIfEmpty(etablissement.enseigne) +
           "</p>" +
           "<p><strong>Siret</strong> :  " +
           etablissement.siret +
           "</p>" +
           "<p><strong>Adresse</strong> :  " +
-          (etablissement.address || "Non renseigné") +
+          placeHolderIfEmpty(etablissement.address) +
           "</p>"
       );
     }

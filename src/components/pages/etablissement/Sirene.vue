@@ -73,9 +73,9 @@
             <div class="timestamps">
                 Dernière mise à jour SIRENE :&nbsp;{{ etablissement.updated_at | frenchDateFormat }}
             </div>
-
-            <mini-map :position-etablissement="coordinates" :etablissement="etablissement"/>
           </div>
+
+          <mini-map />
         </div>
       </div>
     </div>
@@ -124,17 +124,6 @@ export default {
 
     etablissementsToShow: function() {
       return this.showAll ? this.uniteLegale.etablissements : this.uniteLegale.etablissements.slice(0, this.maxLinkToEtablissements);
-    },
-
-    coordinates() {
-      if (
-        this.etablissement &&
-        this.etablissement.longitude &&
-        this.etablissement.latitude
-      ) {
-        return [this.etablissement.longitude, this.etablissement.latitude];
-      }
-      return null;
     }
   },
 

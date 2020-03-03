@@ -18,7 +18,7 @@ const httpGeoJson = axios.create({
 const state = {
   etablissement: {},
   uniteLegale: {},
-  geoJson: {}
+  etablissementsNearby: {}
 };
 
 const getters = {
@@ -28,6 +28,10 @@ const getters = {
 
   getUniteLegale(state) {
     return state.uniteLegale;
+  },
+
+  getEtablissementsNearby(state) {
+    return state.etablissementsNearby;
   }
 };
 
@@ -40,8 +44,8 @@ const mutations = {
     state.uniteLegale = uniteLegale;
   },
 
-  fillGeoJson(state, geoJson) {
-    state.geoJson = geoJson;
+  fillEtablissementsNearby(state, geoJson) {
+    state.etablissementsNearby = geoJson;
   }
 };
 
@@ -57,10 +61,10 @@ const actions = {
     commit("fillUniteLegale", response.data.unite_legale);
   },
 
-  async fetchGeoJson({ commit }, siren) {
+  async fetchEtablissementsNearby({ commit }, siren) {
     const url = `${siren}/etablissements_geojson`;
     const response = await httpGeoJson.get(url);
-    commit("fillGeoJson", response.data);
+    commit("fillEtablissementsNearby", response.data);
   },
 
   async fetchAllData({ dispatch, state }, siret) {
@@ -68,7 +72,7 @@ const actions = {
     const siren = state.etablissement.siren;
     await Promise.all([
       dispatch("fetchUniteLegale", siren),
-      dispatch("fetchGeoJson", siren)
+      dispatch("fetchEtablissementsNearby", siren)
     ]);
   }
 };
