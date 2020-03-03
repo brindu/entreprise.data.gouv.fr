@@ -63,6 +63,18 @@
                 </li>
               </ul>
             </div>
+
+            <div v-else class="company__item"> Cet établissement est le seul de cette entreprise.</div>
+
+            <router-link :to="{ name: 'rncs', params: { siren: etablissement.siren } }">
+              Fiche d'immatriculation au RNCS
+            </router-link>
+
+            <div class="timestamps">
+                Dernière mise à jour SIRENE :&nbsp;{{ etablissement.updated_at | frenchDateFormat }}
+            </div>
+
+            <mini-map :position-etablissement="coordinates" :etablissement="etablissement"/>
           </div>
         </div>
       </div>
@@ -72,7 +84,8 @@
 
 <script>
 import { concatNames } from "@/helpers";
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+import Map from "@/components/pages/etablissement/Map.vue";
 
 export default {
   name: 'SireneEtablissement',
@@ -111,15 +124,38 @@ export default {
 
     etablissementsToShow: function() {
       return this.showAll ? this.uniteLegale.etablissements : this.uniteLegale.etablissements.slice(0, this.maxLinkToEtablissements);
+    },
+
+    coordinates() {
+      if (
+        this.etablissement &&
+        this.etablissement.longitude &&
+        this.etablissement.latitude
+      ) {
+        return [this.etablissement.longitude, this.etablissement.latitude];
+      }
+      return null;
     }
   },
 
+  watch: {
+    id: function() { this.fetchAllDataForEtablissement() }
+  },
+
   created() {
-    this.$store.dispatch("sirene/fetchAllData", this.id)
-      .then(() => this.dataLoaded = true)
+    this.fetchAllDataForEtablissement(this.id);
   },
 
   methods: {
+    fetchAllDataForEtablissement: function() {
+      this.dataLoaded = false;
+      this.$store.dispatch("sirene/fetchAllData", this.id)
+        .then(() => this.dataLoaded = true)
+    }
+  },
+
+  components: {
+    "mini-map": Map
   }
 }
 </script>
@@ -211,5 +247,12 @@ h2 {
 
 .is_closed {
   color: $color-red;
+}
+
+.timestamps {
+  color: grey;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

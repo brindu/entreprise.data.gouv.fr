@@ -42,3 +42,8 @@ Vue.filter("prettySiretHtml", function(str) {
 Vue.filter("placeHolderIfEmpty", function(str) {
   return (str && str !== "null") ? str : "Non renseigné";
 });
+
+// convert a date into the DD/MM/YYYY format
+Vue.filter("frenchDateFormat", function(date) {
+  return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
+});
