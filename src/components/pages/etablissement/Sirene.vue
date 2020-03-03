@@ -31,11 +31,11 @@ export default {
   },
 
   watch: {
-    id: function() { this.fetchAllDataForEtablissement() }
+    siret: function() { this.fetchAllDataForEtablissement() }
   },
 
   created() {
-    this.fetchAllDataForEtablissement(this.siret);
+    this.fetchAllDataForEtablissement();
   },
 
   methods: {

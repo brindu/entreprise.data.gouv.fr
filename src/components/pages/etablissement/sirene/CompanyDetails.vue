@@ -54,7 +54,7 @@
 
         <ul class="company__children">
           <li v-for="eta in etablissementsToShow" :key="eta.siret" class="company__item-link">
-            <router-link :to="{ name: 'sirene-etablissement', params: { id: eta.siret } }">
+            <router-link :to="{ name: 'sirene-etablissement', params: { siret: eta.siret } }">
               {{ eta.siret | prettySiret }}
             </router-link>
           </li>
