@@ -3,6 +3,7 @@
     <div class="container">
       <div v-if="dataLoaded" class="company">
         <company-details />
+        <etablissement-details />
       </div>
     </div>
   </section>
@@ -10,6 +11,7 @@
 
 <script>
 import CompanyDetails from "@/components/pages/etablissement/sirene/CompanyDetails.vue";
+import EtablissementDetails from "@/components/pages/etablissement/sirene/EtablissementDetails.vue";
 
 export default {
   name: 'SireneEtablissement',
@@ -45,7 +47,8 @@ export default {
   },
 
   components: {
-    "company-details": CompanyDetails
+    "company-details": CompanyDetails,
+    "etablissement-details": EtablissementDetails
   }
 }
 </script>

@@ -1,5 +1,7 @@
 import capitalize from "lodash/capitalize";
 import toUpper from "lodash/toUpper";
+import { libellesCodesNaf } from "@/fixtures/codes_naf";
+import { libellesCategoriesJuridiques } from "@/fixtures/categories_juridiques";
 
 function concatNames(firstName, lastName) {
   const last = toUpper(lastName);
@@ -13,7 +15,17 @@ function placeHolderIfEmpty(str) {
   return (str && str !== "null") ? str : "Non renseigné";
 }
 
+function libelleFromCodeNaf(codeNaf) {
+  const formattedNaf = codeNaf.replace(/[.-]/g, "");
+  return libellesCodesNaf[formattedNaf];
+}
+function libelleFromCategoriesJuridiques(categorie) {
+  return libellesCategoriesJuridiques[categorie];
+}
+
 export {
   concatNames,
-  placeHolderIfEmpty
+  placeHolderIfEmpty,
+  libelleFromCodeNaf,
+  libelleFromCategoriesJuridiques
 };
