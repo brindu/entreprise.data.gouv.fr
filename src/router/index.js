@@ -28,7 +28,7 @@ const router = new VueRouter({
       props: (route) => ({ fullText: route.query.fullText, page: parseInt(route.query.page) })
     },
     {
-      path: "/sirene/etablissements/:id",
+      path: "/sirene/etablissements/:siret",
       name: "sirene-etablissement",
       props: true,
       component: SireneEtablissement
