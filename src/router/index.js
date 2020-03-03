@@ -10,7 +10,7 @@ import DocumentationRna from "@/components/doc/Rna";
 import DocumentationRncs from "@/components/doc/Rncs";
 import SearchResultsList from "@/components/pages/search_results/List";
 import SireneEtablissement from "@/components/pages/etablissement/Sirene";
-import RncsDetails from "@/components/pages/etablissement/RncsDetails";
+import Rncs from "@/components/pages/etablissement/Rncs";
 
 Vue.use(VueRouter);
 
@@ -38,7 +38,7 @@ const router = new VueRouter({
       path: "/rncs/:siren",
       name: "rncs",
       props: true,
-      component: RncsDetails
+      component: Rncs
     },
     {
       path: "/api_doc",

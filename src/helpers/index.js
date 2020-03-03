@@ -22,9 +22,14 @@ function libelleFromCodeNaf(codeNaf) {
 function libelleFromCategoriesJuridiques(categorie) {
   return libellesCategoriesJuridiques[categorie];
 }
+// convert a date into the DD/MM/YYYY format
+function frenchDateFormat(date) {
+  return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
+}
 
 export {
   concatNames,
+  frenchDateFormat,
   placeHolderIfEmpty,
   libelleFromCodeNaf,
   libelleFromCategoriesJuridiques

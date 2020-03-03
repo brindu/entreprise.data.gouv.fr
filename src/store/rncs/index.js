@@ -1,4 +1,5 @@
 import axios from "axios";
+import { frenchDateFormat } from "@/helpers";
 
 const http = axios.create({
   baseURL: `${process.env.VUE_APP_FICHE_IDENTITE_RNCS}`,
@@ -10,11 +11,14 @@ const state = {
 };
 
 const getters = {
+  getLastUpdate(state) {
+    return frenchDateFormat(state.dossierPrincipal.db_current_date);
+  }
 };
 
 const mutations = {
   fillRncsData(state, data) {
-    state.dossierPrincipal = data;
+    state.dossierPrincipal = data.dossier_entreprise_greffe_principal;
   }
 };
 
