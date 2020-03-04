@@ -20,7 +20,17 @@
           Annonces BODACC
         </a>
       </div>
-      <company-identity />
+
+      <div class="company">
+        <div class="company-container">
+          <div class="company__panel panel">
+            <personne-morale-identity v-if="personneMorale"/>
+            <personne-physique-identity v-if="personnePhysique" />
+          </div>
+          <registration-details />
+        </div>
+      </div>
+
       <div class="company__extra">
         <div class="notification grey">
           <div>
@@ -43,7 +53,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import CompanyIdentity from "@/components/pages/etablissement/rncs/CompanyIdentity";
+import PersonneMoraleIdentity from "@/components/pages/etablissement/rncs/PersonneMoraleIdentity";
+import PersonnePhysiqueIdentity from "@/components/pages/etablissement/rncs/PersonnePhysiqueIdentity";
+import RegistrationDetails from "@/components/pages/etablissement/rncs/RegistrationDetails";
 
 export default {
   name: 'Rncs',
@@ -66,7 +78,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      rncsLastUpdate: "rncs/getLastUpdate"
+      rncsLastUpdate: "rncs/getLastUpdate",
+      personneMorale: "rncs/getPersonneMorale",
+      personnePhysique: "rncs/getPersonnePhysique"
     }),
 
     linkToPDF: function() {
@@ -99,7 +113,9 @@ export default {
   },
 
   components: {
-    "company-identity": CompanyIdentity
+    "personne-morale-identity": PersonneMoraleIdentity,
+    "personne-physique-identity": PersonnePhysiqueIdentity,
+    "registration-details": RegistrationDetails
   }
 }
 </script>
@@ -138,6 +154,10 @@ export default {
       margin-top: 1em;
     }
   }
+
+  .company-container .panel + .panel {
+    margin-left: 0;
+  }
 }
 
 .company__buttons > .button {
@@ -149,5 +169,9 @@ export default {
 
 .company__extra {
   margin-top: 2em;
+}
+
+.company-container .panel + .panel {
+  margin-left: 2em;
 }
 </style>

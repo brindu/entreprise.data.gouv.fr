@@ -22,14 +22,22 @@ function libelleFromCodeNaf(codeNaf) {
 function libelleFromCategoriesJuridiques(categorie) {
   return libellesCategoriesJuridiques[categorie];
 }
+
 // convert a date into the DD/MM/YYYY format
 function frenchDateFormat(date) {
   return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
 }
 
+function formatAddressZone(codePostal, ville, pays) {
+  const zone = `${toUpper(codePostal)} ${capitalize(ville)}, ${toUpper(pays)}`;
+  const trim = new RegExp(/^, ?| ,| ?,$/g);
+  return zone.trim().replace(trim, "");
+}
+
 export {
   concatNames,
   frenchDateFormat,
+  formatAddressZone,
   placeHolderIfEmpty,
   libelleFromCodeNaf,
   libelleFromCategoriesJuridiques
