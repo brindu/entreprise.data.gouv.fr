@@ -23,14 +23,14 @@
       </div>
     </div>
 
-    <div class="company__item">
+    <div v-if="personneMorale.associe_unique" class="company__item">
       <div class="company__item-key">Associé unique</div>
       <div class="company__item-value">
         {{ personneMorale.associe_unique }}
       </div>
     </div>
 
-    <div class="company__item">
+    <div v-if="personneMorale.activite_principale" class="company__item">
       <div class="company__item-key">Activité principale</div>
       <div class="company__item-value">
         {{ personneMorale.activite_principale }}
