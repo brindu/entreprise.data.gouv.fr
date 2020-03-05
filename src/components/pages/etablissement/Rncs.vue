@@ -29,6 +29,7 @@
           </div>
           <registration-details />
         </div>
+        <observations />
       </div>
 
       <div class="company__extra">
@@ -56,6 +57,7 @@ import { mapGetters } from "vuex";
 import PersonneMoraleIdentity from "@/components/pages/etablissement/rncs/PersonneMoraleIdentity";
 import PersonnePhysiqueIdentity from "@/components/pages/etablissement/rncs/PersonnePhysiqueIdentity";
 import RegistrationDetails from "@/components/pages/etablissement/rncs/RegistrationDetails";
+import Observations from "@/components/pages/etablissement/rncs/Observations";
 
 export default {
   name: 'Rncs',
@@ -115,7 +117,8 @@ export default {
   components: {
     "personne-morale-identity": PersonneMoraleIdentity,
     "personne-physique-identity": PersonnePhysiqueIdentity,
-    "registration-details": RegistrationDetails
+    "registration-details": RegistrationDetails,
+    "observations": Observations
   }
 }
 </script>

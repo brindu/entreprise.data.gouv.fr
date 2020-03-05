@@ -1,5 +1,6 @@
 import axios from "axios";
 import toUpper from "lodash/toUpper";
+import orderBy from "lodash/orderBy";
 import { concatNames, frenchDateFormat, formatAddressZone } from "@/helpers";
 
 const http = axios.create({
@@ -88,6 +89,13 @@ const getters = {
 
   getPersonneMorale(state) {
     return state.dossierPrincipal.personne_morale;
+  },
+
+  getObservations(state) {
+    const nonEmptyObservations = state.dossierPrincipal.observations.filter(
+      obs => obs.texte !== null
+    );
+    return orderBy(nonEmptyObservations, "date_ajout", "desc");
   },
 
   getPersonneMoraleAttribute: (state) => (attr) => {
