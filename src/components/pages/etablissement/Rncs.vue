@@ -29,6 +29,7 @@
           </div>
           <registration-details />
         </div>
+        <representants />
         <observations />
       </div>
 
@@ -57,6 +58,7 @@ import { mapGetters } from "vuex";
 import PersonneMoraleIdentity from "@/components/pages/etablissement/rncs/PersonneMoraleIdentity";
 import PersonnePhysiqueIdentity from "@/components/pages/etablissement/rncs/PersonnePhysiqueIdentity";
 import RegistrationDetails from "@/components/pages/etablissement/rncs/RegistrationDetails";
+import Representants from "@/components/pages/etablissement/rncs/Representants";
 import Observations from "@/components/pages/etablissement/rncs/Observations";
 
 export default {
@@ -118,6 +120,7 @@ export default {
     "personne-morale-identity": PersonneMoraleIdentity,
     "personne-physique-identity": PersonnePhysiqueIdentity,
     "registration-details": RegistrationDetails,
+    "representants": Representants,
     "observations": Observations
   }
 }

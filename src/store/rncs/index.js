@@ -91,6 +91,18 @@ const getters = {
     return state.dossierPrincipal.personne_morale;
   },
 
+  getRepresentantsPersonneMorale(state) {
+    return state.dossierPrincipal.representants.filter(
+      rep => rep.type_representant && RegExp(/morale/).test(rep.type_representant.toLowerCase())
+    );
+  },
+
+  getRepresentantsPersonnePhysique(state) {
+    return state.dossierPrincipal.representants.filter(
+      rep => rep.type_representant && RegExp(/physique/).test(rep.type_representant.toLowerCase())
+    );
+  },
+
   getObservations(state) {
     const nonEmptyObservations = state.dossierPrincipal.observations.filter(
       obs => obs.texte !== null

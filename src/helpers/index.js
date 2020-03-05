@@ -25,11 +25,16 @@ function libelleFromCategoriesJuridiques(categorie) {
 
 // convert a date into the DD/MM/YYYY format
 function frenchDateFormat(date) {
-  return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
+  const dateFormat = RegExp(/^\d{4}-\d{2}-\d{2}$/);
+  if (dateFormat.test(date)) {
+    return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
+  }
+  else return date;
 }
 
-function formatAddressZone(codePostal, ville, pays) {
-  const zone = `${toUpper(codePostal)} ${capitalize(ville)}, ${toUpper(pays)}`;
+function formatAddressZone(codePostal, ville, pays, { shortened = false } = {}) {
+  let zone = `${toUpper(codePostal)} ${capitalize(ville)}, ${toUpper(pays)}`;
+  if (shortened) zone = zone.replace(/FRANCE/, "");
   const trim = new RegExp(/^, ?| ,| ?,$/g);
   return zone.trim().replace(trim, "");
 }
