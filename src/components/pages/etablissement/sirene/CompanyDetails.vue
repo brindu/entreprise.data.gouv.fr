@@ -21,7 +21,7 @@
             class="company__item-link"
             :to="{
               name: 'sirene-etablissement',
-              params: { id: uniteLegale.etablissement_siege.siret }
+              params: { sirenOrSiret: uniteLegale.etablissement_siege.siret }
             }"
           >
             {{ uniteLegale.denomination | removeExtraChars }}
@@ -54,7 +54,7 @@
 
         <ul class="company__children">
           <li v-for="eta in etablissementsToShow" :key="eta.siret" class="company__item-link">
-            <router-link :to="{ name: 'sirene-etablissement', params: { siret: eta.siret } }">
+            <router-link :to="{ name: 'sirene-etablissement', params: { sirenOrSiret: eta.siret } }">
               {{ eta.siret | prettySiret }}
             </router-link>
           </li>

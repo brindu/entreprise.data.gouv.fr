@@ -67,13 +67,25 @@ const actions = {
     commit("fillEtablissementsNearby", response.data);
   },
 
-  async fetchAllData({ dispatch, state }, siret) {
-    await dispatch("fetchEtablissement", siret);
-    const siren = state.etablissement.siren;
-    await Promise.all([
-      dispatch("fetchUniteLegale", siren),
-      dispatch("fetchEtablissementsNearby", siren)
-    ]);
+  async fetchAllData({ dispatch, state }, sirenOrsiret) {
+    // In case the entry point is the siret
+    if (sirenOrsiret.length === 14) {
+      await dispatch("fetchEtablissement", sirenOrsiret);
+      const siren = state.etablissement.siren;
+      await Promise.all([
+        dispatch("fetchUniteLegale", siren),
+        dispatch("fetchEtablissementsNearby", siren)
+      ]);
+    }
+    // In case the entry point is the siren, loading uniteLegale first
+    // to get the siret of the siege
+    else if (sirenOrsiret.length === 9) {
+      await Promise.all([
+        dispatch("fetchUniteLegale", sirenOrsiret),
+        dispatch("fetchEtablissementsNearby", sirenOrsiret)
+      ]);
+      state.etablissement = state.uniteLegale.etablissement_siege;
+    }
   }
 };
 

@@ -2,7 +2,7 @@
   <li>
     <router-link
       class="panel"
-      :to="{ name: 'sirene-etablissement', params: { siret: etablissement.siret } }"
+      :to="{ name: 'sirene-etablissement', params: { sirenOrSiret: etablissement.siret } }"
     >
       <h4 class="title">
         {{ etablissement.nom_raison_sociale | capitalize | removeExtraChars }}

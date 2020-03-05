@@ -18,11 +18,11 @@ export default {
 
   metaInfo() {
     return {
-      title: `SIRENE - ${this.siret}`
+      title: `SIRENE - ${this.sirenOrSiret}`
     }
   },
 
-  props: { siret: String },
+  props: { sirenOrSiret: String },
 
   data() {
     return {
@@ -31,17 +31,17 @@ export default {
   },
 
   watch: {
-    siret: function() { this.fetchAllDataForEtablissement() }
+    sirenOrSiret: function() { this.fetchAllData() }
   },
 
   created() {
-    this.fetchAllDataForEtablissement();
+    this.fetchAllData();
   },
 
   methods: {
-    fetchAllDataForEtablissement: function() {
+    fetchAllData: function() {
       this.dataLoaded = false;
-      this.$store.dispatch("sirene/fetchAllData", this.siret)
+      this.$store.dispatch("sirene/fetchAllData", this.sirenOrSiret)
         .then(() => this.dataLoaded = true)
     }
   },

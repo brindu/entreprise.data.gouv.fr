@@ -18,7 +18,7 @@
         <router-link
           :to="{
             name: 'sirene-etablissement',
-            params: { siret: representant.siren_pm }
+            params: { sirenOrSiret: representant.siren_pm }
           }"
         >
           {{ representant.siren_pm | prettySiren }}
