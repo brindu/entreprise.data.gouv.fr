@@ -1,4 +1,5 @@
 import axios from "axios";
+import { removeExtraChars } from "@/helpers";
 
 const http = axios.create({
   baseURL: `${process.env.VUE_APP_SIRENE_SUGGESTIONS}`,
@@ -17,7 +18,7 @@ const getters = {
 
 const mutations = {
   fillSuggestions(state, suggestions) {
-    state.suggestions = suggestions;
+    state.suggestions = suggestions.map(removeExtraChars);
   },
 
   emptySuggestions(state) {

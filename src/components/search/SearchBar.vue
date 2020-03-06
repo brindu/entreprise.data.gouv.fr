@@ -30,6 +30,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { removeDiacritics } from "@/helpers";
 import SearchBarButton from "@/components/search/SearchBarButton";
 import _debounce from "lodash/debounce";
 
@@ -61,15 +62,22 @@ export default {
 
   methods: {
     submit () {
-      const query = (this.selectionCursor !== -1) ? this.suggestions[this.selectionCursor] : this.searchInput;
+      const input = (this.selectionCursor !== -1) ? this.suggestions[this.selectionCursor] : this.searchInput;
       this.emptySuggestions();
       this.searchInput = null;
+      const query = this.clearInput(input);
       this.$router.push({ name: "search-results", query: { fullText: query, page: 1 } });
     },
 
     selectAndSubmit (suggestionIndex) {
       this.selectionCursor = suggestionIndex;
       this.submit();
+    },
+
+    clearInput(input) {
+      let clearedInput = input.trim();
+      clearedInput = removeDiacritics(clearedInput);
+      return clearedInput;
     },
 
     requestSuggestions (val) {

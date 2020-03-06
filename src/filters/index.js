@@ -1,21 +1,12 @@
 import capitalize from "lodash/capitalize";
 import toUpper from "lodash/toUpper";
-import { placeHolderIfEmpty, frenchDateFormat } from "@/helpers";
+import { placeHolderIfEmpty, frenchDateFormat, removeExtraChars } from "@/helpers";
 
 import Vue from "vue";
 
-Vue.filter("removeExtraChars", function(str) {
-  if (!str) return;
-
-  return str
-    .replace(/\*/g, " ")
-    .replace(/\//g, " ")
-    .replace(/\s{2,}/g, " ")
-    .replace(/\s$/, "");
-});
-
 Vue.filter("capitalize", capitalize);
 Vue.filter("upperCase", toUpper);
+Vue.filter("removeExtraChars", removeExtraChars);
 Vue.filter("frenchDateFormat", frenchDateFormat);
 Vue.filter("placeHolderIfEmpty", placeHolderIfEmpty);
 

@@ -1,5 +1,6 @@
 import capitalize from "lodash/capitalize";
 import toUpper from "lodash/toUpper";
+import removeDiacritics from "@/helpers/diacritics";
 import { libellesCodesNaf } from "@/fixtures/codes_naf";
 import { libellesCategoriesJuridiques } from "@/fixtures/categories_juridiques";
 
@@ -9,6 +10,16 @@ function concatNames(firstName, lastName) {
 
   if (first !== "" && last !== "") return `${first} ${last}`;
   else return last;
+}
+
+function removeExtraChars(str) {
+  if (!str) return;
+
+  return str
+    .replace(/\*/g, " ")
+    .replace(/\//g, " ")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s$/, "");
 }
 
 function placeHolderIfEmpty(str) {
@@ -49,6 +60,8 @@ export {
   frenchDateFormat,
   formatAddressZone,
   placeHolderIfEmpty,
+  removeDiacritics,
+  removeExtraChars,
   libelleFromCodeNaf,
   libelleFromCategoriesJuridiques
 };
