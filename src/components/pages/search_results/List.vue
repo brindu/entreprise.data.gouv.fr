@@ -29,7 +29,7 @@ export default {
 
   metaInfo() {
     return {
-      title: `Recherche : ${this.fullText} - Page : ${this.page}`
+      title: `Recherche : "${this.fullText}" - Page : ${this.page}`
     }
   },
 

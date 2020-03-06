@@ -1,4 +1,5 @@
 import axios from "axios";
+import { concatNames } from "@/helpers";
 
 const httpEtablissement = axios.create({
   baseURL: `${process.env.VUE_APP_SIRENE_ETABLISSEMENT}`,
@@ -28,6 +29,12 @@ const getters = {
 
   getUniteLegale(state) {
     return state.uniteLegale;
+  },
+
+  getCompanyTitle(state) {
+    const isEntrepreneur = (state.uniteLegale.categorie_juridique === "1000")
+    if (isEntrepreneur) return concatNames(state.uniteLegale.prenom_1, state.uniteLegale.nom)
+    else return state.uniteLegale.denomination
   },
 
   getEtablissementsNearby(state) {

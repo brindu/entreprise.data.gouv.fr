@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import { concatNames } from "@/helpers";
 import { mapGetters } from 'vuex';
 import Map from "@/components/pages/etablissement/sirene/Map.vue";
 
@@ -94,14 +93,9 @@ export default {
   computed: {
     ...mapGetters({
       etablissement: "sirene/getEtablissement",
-      uniteLegale: "sirene/getUniteLegale"
+      uniteLegale: "sirene/getUniteLegale",
+      companyTitle: "sirene/getCompanyTitle"
     }),
-
-    companyTitle: function() {
-      const isEntrepreneur = (this.uniteLegale.categorie_juridique === "1000")
-      if (isEntrepreneur) return concatNames(this.uniteLegale.prenom_1, this.uniteLegale.nom)
-      else return this.uniteLegale.denomination
-    },
 
     etablissementsNumber: function() {
       return this.uniteLegale.etablissements.length;

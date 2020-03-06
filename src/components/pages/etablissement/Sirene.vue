@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import CompanyDetails from "@/components/pages/etablissement/sirene/CompanyDetails.vue";
 import EtablissementDetails from "@/components/pages/etablissement/sirene/EtablissementDetails.vue";
 
@@ -18,7 +19,7 @@ export default {
 
   metaInfo() {
     return {
-      title: `SIRENE - ${this.sirenOrSiret}`
+      title: `${this.companyTitle} - Données de la base SIRENE`
     }
   },
 
@@ -36,6 +37,10 @@ export default {
 
   created() {
     this.fetchAllData();
+  },
+
+  computed: {
+    ...mapGetters({ companyTitle: "sirene/getCompanyTitle"})
   },
 
   methods: {

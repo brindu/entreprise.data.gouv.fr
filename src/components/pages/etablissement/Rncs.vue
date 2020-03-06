@@ -66,7 +66,7 @@ export default {
 
   metaInfo() {
     return {
-      title: `RNCS - ${this.siren}`
+      title: `${this.companyTitle} - Données du RNCS`
     }
   },
 
@@ -82,6 +82,7 @@ export default {
 
   computed: {
     ...mapGetters({
+      companyTitle: "rncs/getCompanyTitle",
       rncsLastUpdate: "rncs/getLastUpdate",
       personneMorale: "rncs/getPersonneMorale",
       personnePhysique: "rncs/getPersonnePhysique"

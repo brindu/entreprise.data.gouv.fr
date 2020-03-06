@@ -17,13 +17,21 @@ const getters = {
     return frenchDateFormat(state.dossierPrincipal.db_current_date);
   },
 
-  getPersonnePhysiqueIdentity(state, { getPersonnePhysiqueAttribute }) {
-    const nom = concatNames(
+  getCompanyTitle(state, getters) {
+    if (getters.getPersonneMorale) return getters.getPersonneMoraleAttribute("denomination");
+    else if (getters.getPersonnePhysique) return getters.getPersonnePhysiqueTitle;
+  },
+
+  getPersonnePhysiqueTitle(state, { getPersonnePhysiqueAttribute }) {
+    return concatNames(
       getPersonnePhysiqueAttribute("prenoms"),
       getPersonnePhysiqueAttribute("nom_patronyme")
     );
+  },
+
+  getPersonnePhysiqueIdentity(state, { getPersonnePhysiqueAttribute, getPersonnePhysiqueTitle }) {
     const data = {
-      "Nom": nom,
+      "Nom": getPersonnePhysiqueTitle(),
       "Nom d'usage": toUpper(getPersonnePhysiqueAttribute("nom_usage")),
       "Pseudonyme": getPersonnePhysiqueAttribute("pseudonyme"),
       "Date de naissance": getPersonnePhysiqueAttribute("date_naissance"),

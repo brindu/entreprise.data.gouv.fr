@@ -33,7 +33,7 @@ export default {
 
   metaInfo() {
     return {
-      title: `RNA - ${this.assoId}`
+      title: `${this.association.titre} - Données du RNA`
     }
   },
 
