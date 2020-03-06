@@ -25,9 +25,14 @@ function libelleFromCategoriesJuridiques(categorie) {
 
 // convert a date into the DD/MM/YYYY format
 function frenchDateFormat(date) {
-  const dateFormat = RegExp(/^\d{4}-\d{2}-\d{2}$/);
-  if (dateFormat.test(date)) {
+  const dateFormatHyphens = RegExp(/^\d{4}-\d{2}-\d{2}$/);
+  const timestamp = Date.parse(date);
+
+  if (dateFormatHyphens.test(date)) {
     return (date == null) ? null : new Intl.DateTimeFormat("en-GB").format(new Date(date));
+  }
+  else if (!isNaN(timestamp)) {
+    return new Intl.DateTimeFormat("en-GB").format(new Date(timestamp));
   }
   else return date;
 }

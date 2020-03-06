@@ -3,8 +3,8 @@
     <router-link
       class="panel"
       :to="{
-        name: 'Etablissement',
-        params: { searchId: association.id_association }
+        name: 'rna-etablissement',
+        params: { assoId: association.id_association }
       }"
     >
       <h4 class="title">{{ association.titre | capitalize }}</h4>

@@ -10,6 +10,7 @@ import DocumentationRna from "@/components/doc/Rna";
 import DocumentationRncs from "@/components/doc/Rncs";
 import SearchResultsList from "@/components/pages/search_results/List";
 import SireneEtablissement from "@/components/pages/etablissement/Sirene";
+import RNAEtablissement from "@/components/pages/etablissement/Rna";
 import Rncs from "@/components/pages/etablissement/Rncs";
 
 Vue.use(VueRouter);
@@ -33,6 +34,12 @@ const router = new VueRouter({
       name: "sirene-etablissement",
       props: true,
       component: SireneEtablissement
+    },
+    {
+      path: "/rna/etablissements/:assoId",
+      name: "rna-etablissement",
+      props: true,
+      component: RNAEtablissement
     },
     {
       path: "/rncs/:siren",
