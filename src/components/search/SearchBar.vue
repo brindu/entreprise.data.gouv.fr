@@ -55,15 +55,16 @@ export default {
 
   watch: {
     searchInput: function(val) {
-      if (val !== "") this.debounceRequestSuggestion(val);
+      if (val !== "" && val !== null) this.debounceRequestSuggestion(val);
     }
   },
 
   methods: {
     submit () {
-      if (this.selectionCursor !== -1) this.searchInput = this.suggestions[this.selectionCursor];
+      const query = (this.selectionCursor !== -1) ? this.suggestions[this.selectionCursor] : this.searchInput;
       this.emptySuggestions();
-      this.$router.push({ name: "search-results", query: { fullText: this.searchInput, page: 1 } });
+      this.searchInput = null;
+      this.$router.push({ name: "search-results", query: { fullText: query, page: 1 } });
     },
 
     selectAndSubmit (suggestionIndex) {
