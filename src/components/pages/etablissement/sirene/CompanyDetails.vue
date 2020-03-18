@@ -7,8 +7,7 @@
       </h2>
 
       <div class="subtitle">
-        <div>{{ etablissement.geo_l4 }}</div>
-        <div>{{ etablissement.geo_l5 }}</div>
+        <div>{{ formattedAdresse  | placeHolderIfEmpty }}</div>
       </div>
 
       <div class="company__panel">
@@ -94,7 +93,8 @@ export default {
     ...mapGetters({
       etablissement: "sirene/getEtablissement",
       uniteLegale: "sirene/getUniteLegale",
-      companyTitle: "sirene/getCompanyTitle"
+      companyTitle: "sirene/getCompanyTitle",
+      formattedAdresse: "sirene/getFormattedAddress"
     }),
 
     etablissementsNumber: function() {

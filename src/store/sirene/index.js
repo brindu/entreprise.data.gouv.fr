@@ -39,6 +39,17 @@ const getters = {
 
   getEtablissementsNearby(state) {
     return state.etablissementsNearby;
+  },
+
+  getFormattedAddress(state) {
+    if (
+      state.etablissement.numero_voie &&
+      state.etablissement.type_voie &&
+      state.etablissement.libelle_voie
+    ) {
+      return `${state.etablissement.numero_voie} ${state.etablissement.type_voie} ${state.etablissement.libelle_voie}`;
+    }
+    else return null;
   }
 };
 

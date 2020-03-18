@@ -12,7 +12,7 @@
         <div class="company__item">
           <label class="company__item-key">Adresse</label>
           <div class="company__item-value">
-            {{ etablissement.geo_l4 | placeHolderIfEmpty }}
+            {{ formattedAddress | placeHolderIfEmpty }}
           </div>
         </div>
         <div class="company__item">
@@ -115,7 +115,8 @@ export default {
   computed: {
     ...mapGetters({
       uniteLegale: "sirene/getUniteLegale",
-      etablissement: "sirene/getEtablissement"
+      etablissement: "sirene/getEtablissement",
+      formattedAddress: "sirene/getFormattedAddress"
     }),
 
     managingDirector: function() {
