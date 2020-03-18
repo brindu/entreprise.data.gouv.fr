@@ -178,8 +178,8 @@
           donc reservées aux administrations ou entreprises justifiant d'une
           mission de service public.<br />
           Pour toutes questions :
-          <a href="maito:tech@entreprise.api.gouv.fr"
-            >support@entreprise.api.gouv.fr</a
+          <a href="maito:entreprise@data.gouv.fr"
+            >entreprise@data.gouv.fr</a
           >
         </p>
         <a class="button" href="https://entreprise.api.gouv.fr/"
