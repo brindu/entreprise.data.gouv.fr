@@ -171,7 +171,7 @@ export default {
       if (
         this.association.adresse_code_postal &&
         this.association.adresse_libelle_commune
-      ) { 
+      ) {
         return `${this.association.adresse_code_postal} ${this.association.adresse_libelle_commune}`;
       }
       else return null;
