@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="company__main">
+    <non-diffusable v-if="isNonDiffusable" />
+
+    <div v-else class="company__main">
       <div class="title__block">
         <h2>
           <div>{{ companyTitle | removeExtraChars | placeHolderIfEmpty }}</div>
@@ -105,6 +107,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import Map from "@/components/pages/etablissement/sirene/Map.vue";
+import NonDiffusable from "@/components/pages/etablissement/sirene/NonDiffusable.vue";
 
 export default {
   name: "CompanyDetails",
@@ -133,6 +136,10 @@ export default {
       return this.showAll ? this.uniteLegale.etablissements : this.uniteLegale.etablissements.slice(0, this.maxLinkToEtablissements);
     },
 
+    isNonDiffusable: function() {
+      return this.uniteLegale.statut_diffusion === "N";
+    },
+
     linkInpiWeb() {
       return `${this.baseAddressInpi}${this.uniteLegale.siren}`;
     },
@@ -143,7 +150,8 @@ export default {
   },
 
   components: {
-    "mini-map": Map
+    "mini-map": Map,
+    "non-diffusable": NonDiffusable
   }
 }
 </script>

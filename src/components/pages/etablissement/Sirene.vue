@@ -18,8 +18,10 @@ export default {
   name: 'SireneEtablissement',
 
   metaInfo() {
+    const companyName = this.companyTitle || "Non diffusable"
+
     return {
-      title: `${this.companyTitle} - Données de la base SIRENE`
+      title: `${companyName} - Données de la base SIRENE`
     }
   },
 

@@ -80,9 +80,14 @@ const actions = {
   },
 
   async fetchEtablissementsNearby({ commit }, siren) {
-    const url = `${siren}/etablissements_geojson`;
-    const response = await httpGeoJson.get(url);
-    commit("fillEtablissementsNearby", response.data);
+    try {
+      const url = `${siren}/etablissements_geojson`;
+      const response = await httpGeoJson.get(url);
+      commit("fillEtablissementsNearby", response.data);
+    } catch(e) {
+      if (e.response.status === 404) commit("fillEtablissementsNearby", {});
+      else console.error(e);
+    }
   },
 
   async fetchAllData({ dispatch, state }, sirenOrsiret) {
