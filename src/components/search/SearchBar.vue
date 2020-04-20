@@ -66,7 +66,12 @@ export default {
       this.emptySuggestions();
       this.searchInput = null;
       const query = this.clearInput(input);
-      this.$router.push({ name: "search-results", query: { fullText: query, page: 1 } });
+
+      if (this.isSirenOrSiret(query)) {
+        this.$router.push({ name: "sirene-etablissement", params: { sirenOrSiret: query } })
+      } else {
+        this.$router.push({ name: "search-results", query: { fullText: query, page: 1 } })
+      }
     },
 
     selectAndSubmit (suggestionIndex) {
@@ -78,6 +83,10 @@ export default {
       let clearedInput = input.trim();
       clearedInput = removeDiacritics(clearedInput);
       return clearedInput;
+    },
+
+    isSirenOrSiret(str) {
+      return str.match(/^\d{9}|\d{14}$/g);
     },
 
     requestSuggestions (val) {
