@@ -192,14 +192,9 @@ const mutations = {
 
 const actions = {
   async fetchData({ commit }, siren) {
-    try {
-      const response = await http.get(`${siren}`);
-      commit("fillRncsData", response.data);
-      commit("setApiDataAvailability", true, { root: true });
-    } catch(e) {
-      if (e.response.status === 404 || e.response.status === 422) commit("setApiDataAvailability", false, { root: true });
-      else console.error(e);
-    }
+    const response = await http.get(`${siren}`);
+    commit("fillRncsData", response.data);
+    commit("setApiDataAvailability", true, { root: true });
   }
 };
 

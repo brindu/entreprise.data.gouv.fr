@@ -1,6 +1,8 @@
 <template>
   <section v-if="dataLoaded" class="section">
     <div class="container">
+      <rncs-error v-if="apiError" :message="apiErrorMsg" />
+      <div v-else>
       <div class="company__buttons">
         <a
           class="button"
@@ -49,6 +51,7 @@
           </a>
         </div>
       </div>
+      </div>
     </div>
   </section>
 </template>
@@ -60,13 +63,15 @@ import PersonnePhysiqueIdentity from "@/components/pages/etablissement/rncs/Pers
 import RegistrationDetails from "@/components/pages/etablissement/rncs/RegistrationDetails";
 import Representants from "@/components/pages/etablissement/rncs/Representants";
 import Observations from "@/components/pages/etablissement/rncs/Observations";
+import RncsError from "@/components/pages/etablissement/rncs/Errors";
 
 export default {
   name: 'Rncs',
 
   metaInfo() {
+    const titleLabel = this.companyTitle || this.siren;
     return {
-      title: `${this.companyTitle} - Données du RNCS`
+      title: `${titleLabel} - Données du RNCS`
     }
   },
 
@@ -74,6 +79,7 @@ export default {
 
   data() {
     return {
+      apiErrorMsg: "",
       baseAddress: process.env.VUE_APP_FICHE_IDENTITE_RNCS,
       bodaccAddress: "https://www.bodacc.fr/annonce/liste/",
       dataLoaded: false
@@ -98,6 +104,10 @@ export default {
 
     linkToBodacc() {
       return `${this.bodaccAddress}${this.siren}`;
+    },
+
+    apiError() {
+      return this.apiErrorMsg !== "";
     }
   },
 
@@ -113,7 +123,8 @@ export default {
     fetchRncsData: function() {
       this.dataLoaded = false;
       this.$store.dispatch("rncs/fetchData", this.siren)
-        .then(() => this.dataLoaded = true)
+        .catch((e) => this.apiErrorMsg = e.response.data.error)
+        .finally(() => this.dataLoaded = true)
     }
   },
 
@@ -122,7 +133,8 @@ export default {
     "personne-physique-identity": PersonnePhysiqueIdentity,
     "registration-details": RegistrationDetails,
     "representants": Representants,
-    "observations": Observations
+    "observations": Observations,
+    "rncs-error": RncsError
   }
 }
 </script>
