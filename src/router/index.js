@@ -1,6 +1,8 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
 
+import store from "@/store";
+
 import Homepage from "@/components/pages/Home";
 import NotFound from "@/components/NotFound";
 import LegalNotes from "@/components/pages/LegalNotes";
@@ -84,6 +86,18 @@ const router = new VueRouter({
       component: NotFound
     }
   ]
+});
+
+// Reset the boolean to avoid a persistent NotFound component
+// Ex without this hook:
+//  1. SIRENE API returns a 404
+//  2. The vue app displays the NotFound component
+//  3. User clicks on the top left logo (he wants to go to the homepage)
+//  4. No homepage, still the NotFound component (no API call so the boolean
+//  isn't reset to true)
+router.beforeEach((to, from, next) => {
+  store.commit("setApiDataAvailability", true);
+  next();
 });
 
 export default router;

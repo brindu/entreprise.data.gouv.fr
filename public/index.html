@@ -1,15 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
+    <title>Entreprise.data.gouv.fr</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Moteur de recherche gratuit et open-source des entreprises et associations françaises" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- Tags Google+ SEO -->
+    <meta itemprop="name" content="Entreprise.data.gouv.fr">
+    <meta itemprop="description" content="Moteur de recherche gratuit et open-source des entreprises et associations françaises.">
+    <meta itemprop="image" content="@/assets/img/preview.png">
+
+    <!-- Tags Twitter SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Entreprise.data.gouv.fr">
+    <meta name="twitter:image:src" content="@/assets/img/preview.png">
+    <meta name="twitter:description" content="Moteur de recherche gratuit et open-source des entreprises et associations françaises.">
+
+    <!-- Tags Facebook SEO -->
+    <meta property="og:title" content="Entreprise.data.gouv.fr" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://entreprise.data.gouv.fr/" />
+    <meta property="og:image" content="@/assets/img/preview.png" />
+    <meta property="og:description" content="Moteur de recherche gratuit et open-source des entreprises et associations françaises." />
+
+    <!-- Piwik -->
+    <script>
+      var _paq = _paq || [];
+      _paq.push(["setDomains", ["*.entreprise.data.gouv.fr"]]);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function () {
+        var u = "//stats.data.gouv.fr/";
+        _paq.push(['setTrackerUrl', u + 'piwik.php']);
+        _paq.push(['setSiteId', '44']);
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'piwik.js';
+        s.parentNode.insertBefore(g, s);
+      })();
+
+    </script>
+    <noscript>
+      <p><img src="//stats.data.gouv.fr/piwik.php?idsite=44" style="border:0;" alt="" /></p>
+    </noscript>
+    <!-- End Piwik Code -->
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>Pour consulter ce site, vous avez besoin d’activer Javascript sur votre navigateur.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
