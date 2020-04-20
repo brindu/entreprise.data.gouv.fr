@@ -23,8 +23,13 @@ const mutations = {
 
 const actions = {
   async fetchData({ commit }, assoId) {
-    const response = await http.get(`${assoId}`);
-    commit("fillRnaData", response.data);
+    try {
+      const response = await http.get(`${assoId}`);
+      commit("fillRnaData", response.data);
+    } catch(e) {
+      if (e.response.status === 404) commit("setApiDataAvailability", false, { root: true });
+      else console.error(e);
+    }
   }
 };
 

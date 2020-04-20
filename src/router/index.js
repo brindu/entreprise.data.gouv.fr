@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import Vue from 'vue'
 
 import Homepage from "@/components/pages/Home";
+import NotFound from "@/components/NotFound";
 import LegalNotes from "@/components/pages/LegalNotes";
 import CodesNaf from "@/components/doc/sirene/CodesNaf";
 import DocumentationHome from "@/components/doc/Home";
@@ -76,6 +77,11 @@ const router = new VueRouter({
       path: "/mentions_legales",
       name: "legal-notes",
       component: LegalNotes
+    },
+    {
+      path: "*",
+      name: "not-found",
+      component: NotFound
     }
   ]
 });
